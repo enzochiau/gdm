@@ -149,8 +149,8 @@ class Config(ShellMixin):
         """Get the full path to the sources location."""
         return os.path.join(self.root, self.location)
 
-    def install_deps(self, force=False, clean=True, update=True):
-        """Get all sources, recursively."""
+    def install_deps(self, force=False, clean=True, update=True, recurse=False):
+        """Get all sources."""
         if not os.path.isdir(self.location_path):
             self.mkdir(self.location_path)
         self.cd(self.location_path)
@@ -170,7 +170,7 @@ class Config(ShellMixin):
             config = load()
             if config:
                 common.indent()
-                count += config.install_deps(force, clean, update)
+                count += config.install_deps(force, clean, update and recurse)
                 common.dedent()
 
             self.cd(self.location_path, visible=False)
