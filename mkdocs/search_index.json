@@ -1,0 +1,314 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Git Dependency Manager\n\n\nGit Dependency Manager (GDM) is a language-agnostic \"dependency manager\" using Git. It aims to serve as a submodules replacement and provides advanced options for managing versions of nested Git repositories.\n\n\nRequirements\n\n\n\n\nPython 3.3+\n\n\nLatest version of Git (with \nstored credentials\n)\n\n\nOSX/Linux (with a decent shell for Git)\n\n\n\n\nInstallation\n\n\nGDM can be installed with pip:\n\n\n$ pip3 install gdm\n\n\n\n\nor directly from the source code:\n\n\n$ git clone https://github.com/jacebrowning/gdm.git\n$ cd gdm\n$ python3 setup.py install\n\n\n\n\nSetup\n\n\nCreate a GDM configuration file (\ngdm.yml\n or \n.gdm.yml\n) in the root of your working tree:\n\n\nlocation: .gdm\nsources:\n- repo: https://github.com/kstenerud/iOS-Universal-Framework\n  dir: framework\n  rev: Mk5-end-of-life\n- repo: https://github.com/jonreid/XcodeCoverage\n  dir: coverage\n  rev: master\n  link: Tools/XcodeCoverage\n\n\n\n\nIgnore GDM's dependency storage location:\n\n\n$ echo .gdm \n .gitignore\n\n\n\n\nBasic Usage\n\n\nGet all dependencies:\n\n\n$ gdm install\n\n\n\n\nwhich will essentially:\n\n\n\n\ncreate a working tree at \nroot\n/\nlocation\n/\ndir\n\n\nfetch from \nrepo\n and checkout the specified \nrev\n\n\nsymbolically link each \nlocation\n/\ndir\n from \nroot\n/\nlink\n (if specified)\n\n\nrepeat for all nested working trees containing a configuration file\n\n\n\n\nwhere \nrev\n can be:\n\n\n\n\nall or part of a commit SHA: \n123def\n\n\na tag: \nv1.0\n\n\na branch: \nmaster\n\n\na \nrev-parse\n date: \n'develop@{2015-06-18 10:30:59}'",
+            "title": "Home"
+        },
+        {
+            "location": "/#git-dependency-manager",
+            "text": "Git Dependency Manager (GDM) is a language-agnostic \"dependency manager\" using Git. It aims to serve as a submodules replacement and provides advanced options for managing versions of nested Git repositories.",
+            "title": "Git Dependency Manager"
+        },
+        {
+            "location": "/#requirements",
+            "text": "Python 3.3+  Latest version of Git (with  stored credentials )  OSX/Linux (with a decent shell for Git)",
+            "title": "Requirements"
+        },
+        {
+            "location": "/#installation",
+            "text": "GDM can be installed with pip:  $ pip3 install gdm  or directly from the source code:  $ git clone https://github.com/jacebrowning/gdm.git\n$ cd gdm\n$ python3 setup.py install",
+            "title": "Installation"
+        },
+        {
+            "location": "/#setup",
+            "text": "Create a GDM configuration file ( gdm.yml  or  .gdm.yml ) in the root of your working tree:  location: .gdm\nsources:\n- repo: https://github.com/kstenerud/iOS-Universal-Framework\n  dir: framework\n  rev: Mk5-end-of-life\n- repo: https://github.com/jonreid/XcodeCoverage\n  dir: coverage\n  rev: master\n  link: Tools/XcodeCoverage  Ignore GDM's dependency storage location:  $ echo .gdm   .gitignore",
+            "title": "Setup"
+        },
+        {
+            "location": "/#basic-usage",
+            "text": "Get all dependencies:  $ gdm install  which will essentially:   create a working tree at  root / location / dir  fetch from  repo  and checkout the specified  rev  symbolically link each  location / dir  from  root / link  (if specified)  repeat for all nested working trees containing a configuration file   where  rev  can be:   all or part of a commit SHA:  123def  a tag:  v1.0  a branch:  master  a  rev-parse  date:  'develop@{2015-06-18 10:30:59}'",
+            "title": "Basic Usage"
+        },
+        {
+            "location": "/interfaces/cli/",
+            "text": "Command-line Interface\n\n\nAfter setting up GDM with a \nconfiguration file\n, various commands can be run to manage these Git-controlled source dependencies.\n\n\nInstall\n\n\nTo clone/checkout the specified dependencies, run:\n\n\ngdm install\n\n\n\n\nDelete all untracked files in dependencies by instead running:\n\n\ngdm install --clean\n\n\n\n\nGDM will exit with an error if there are any uncommitted changes in dependencies. To overwrite all changes, run:\n\n\ngdm install --force\n\n\n\n\nUpdate\n\n\nIf any of the dependencies track a branch (rather than a specific commit), the current upstream version of that branch can be checked out by running:\n\n\ngdm update\n\n\n\n\nThis will also record the exact versions that were checked out. Disable this behavior by instead running:\n\n\ngdm update --no-lock\n\n\n\n\nOr, to additionally get the latest versions of all nested dependencies, run:\n\n\ngdm update --all\n\n\n\n\nTo restore the exact versions previously checked out, run:\n\n\ngdm install\n\n\n\n\nList\n\n\nTo display the currently checked out dependencies, run:\n\n\ngdm list\n\n\n\n\nExit with an error if there are any uncommitted changes by instead running:\n\n\ngdm list --no-dirty\n\n\n\n\nUninstall\n\n\nTo delete all source dependencies, run:\n\n\ngdm uninstall\n\n\n\n\nIf any dependencies contain uncommitted changes, instead run:\n\n\ngdm uninstall --force",
+            "title": "Command Line"
+        },
+        {
+            "location": "/interfaces/cli/#command-line-interface",
+            "text": "After setting up GDM with a  configuration file , various commands can be run to manage these Git-controlled source dependencies.",
+            "title": "Command-line Interface"
+        },
+        {
+            "location": "/interfaces/cli/#install",
+            "text": "To clone/checkout the specified dependencies, run:  gdm install  Delete all untracked files in dependencies by instead running:  gdm install --clean  GDM will exit with an error if there are any uncommitted changes in dependencies. To overwrite all changes, run:  gdm install --force",
+            "title": "Install"
+        },
+        {
+            "location": "/interfaces/cli/#update",
+            "text": "If any of the dependencies track a branch (rather than a specific commit), the current upstream version of that branch can be checked out by running:  gdm update  This will also record the exact versions that were checked out. Disable this behavior by instead running:  gdm update --no-lock  Or, to additionally get the latest versions of all nested dependencies, run:  gdm update --all  To restore the exact versions previously checked out, run:  gdm install",
+            "title": "Update"
+        },
+        {
+            "location": "/interfaces/cli/#list",
+            "text": "To display the currently checked out dependencies, run:  gdm list  Exit with an error if there are any uncommitted changes by instead running:  gdm list --no-dirty",
+            "title": "List"
+        },
+        {
+            "location": "/interfaces/cli/#uninstall",
+            "text": "To delete all source dependencies, run:  gdm uninstall  If any dependencies contain uncommitted changes, instead run:  gdm uninstall --force",
+            "title": "Uninstall"
+        },
+        {
+            "location": "/interfaces/plugin/",
+            "text": "Git Plugin\n\n\nGDM offers a simplified version of the \ncommand-line interface\n in the form of a plugin for Git.\n\n\nInstall\n\n\nTo clone/checkout the specified dependencies, run:\n\n\ngit deps\n\n\n\n\nDelete all untracked files in dependencies by instead running:\n\n\ngit deps --clean\n\n\n\n\nGit will exit with an error if there are any uncommitted changes in dependencies. To overwrite all changes, run:\n\n\ngit deps --force\n\n\n\n\nUpdate\n\n\nIf any of the dependencies track a branch (rather than a specific commit), the current upstream version of that branch can be checked out by running:\n\n\ngit deps --update\n\n\n\n\nThis will also record the exact versions that were checked out. Disable this behavior by instead running:\n\n\ngit deps --update --no-lock\n\n\n\n\nOr, to additionally get the latest versions of all nested dependencies, run:\n\n\ngit deps --update --all\n\n\n\n\nTo restore the exact versions previously checked out, run:\n\n\ngit deps\n\n\n\n\nList\n\n\nTo display the currently checked out dependencies, run:\n\n\ngit deps --list\n\n\n\n\nUninstall\n\n\nTo delete all source dependencies, run:\n\n\ngit deps --uninstall\n\n\n\n\nIf any dependencies contain uncommitted changes, instead run:\n\n\ngit deps --uninstall --force",
+            "title": "Git Plugin"
+        },
+        {
+            "location": "/interfaces/plugin/#git-plugin",
+            "text": "GDM offers a simplified version of the  command-line interface  in the form of a plugin for Git.",
+            "title": "Git Plugin"
+        },
+        {
+            "location": "/interfaces/plugin/#install",
+            "text": "To clone/checkout the specified dependencies, run:  git deps  Delete all untracked files in dependencies by instead running:  git deps --clean  Git will exit with an error if there are any uncommitted changes in dependencies. To overwrite all changes, run:  git deps --force",
+            "title": "Install"
+        },
+        {
+            "location": "/interfaces/plugin/#update",
+            "text": "If any of the dependencies track a branch (rather than a specific commit), the current upstream version of that branch can be checked out by running:  git deps --update  This will also record the exact versions that were checked out. Disable this behavior by instead running:  git deps --update --no-lock  Or, to additionally get the latest versions of all nested dependencies, run:  git deps --update --all  To restore the exact versions previously checked out, run:  git deps",
+            "title": "Update"
+        },
+        {
+            "location": "/interfaces/plugin/#list",
+            "text": "To display the currently checked out dependencies, run:  git deps --list",
+            "title": "List"
+        },
+        {
+            "location": "/interfaces/plugin/#uninstall",
+            "text": "To delete all source dependencies, run:  git deps --uninstall  If any dependencies contain uncommitted changes, instead run:  git deps --uninstall --force",
+            "title": "Uninstall"
+        },
+        {
+            "location": "/interfaces/api/",
+            "text": "Package API\n\n\nAll of the \ncommand-line interface\n functionality is available from the Python package by importing \ngdm\n.\n\n\nInstall\n\n\nTo clone/checkout the specified dependencies, call:\n\n\ngdm.install(root=None, force=False, clean=True)\n\n\n\n\nwhere optional arguments:\n\n\n\n\nroot\n: specifies the path to the root working tree\n\n\nforce\n: indicates that uncommitted changes can be overwritten\n\n\nclean\n: causes all untracked files to be deleted from dependencies\n\n\n\n\nUpdate\n\n\nIf any of the dependencies track a branch (rather than a specific commit), the current upstream version of that branch can be checked out by calling:\n\n\ngdm.update(root=None, recurse=False, force=False, clean=True, lock=True)\n\n\n\n\nwhere optional arguments:\n\n\n\n\nroot\n: specifies the path to the root working tree\n\n\nrecurse\n: indicates that nested dependencies should also be updated\n\n\nforce\n: indicates that uncommitted changes can be overwritten\n\n\nclean\n: causes all untracked files to be deleted from dependencies\n\n\nlock\n: causes the actual dependency versions to be recorded for future installs\n\n\n\n\nList\n\n\nTo display the currently checked out dependencies, call:\n\n\ngdm.list(root=None, allow_dirty=True)\n\n\n\n\nwhere optional arguments:\n\n\n\n\nroot\n: specifies the path to the root working tree\n\n\nallow_dirty\n: causes uncommitted changes to be ignored\n\n\n\n\nUninstall\n\n\nTo delete all source dependencies, call:\n\n\ngdm.uninstall(root=None, force=False)\n\n\n\n\nwhere optional arguments:\n\n\n\n\nroot\n: specifies the path to the root working tree\n\n\nforce\n: indicates that uncommitted changes can be overwritten",
+            "title": "Package API"
+        },
+        {
+            "location": "/interfaces/api/#package-api",
+            "text": "All of the  command-line interface  functionality is available from the Python package by importing  gdm .",
+            "title": "Package API"
+        },
+        {
+            "location": "/interfaces/api/#install",
+            "text": "To clone/checkout the specified dependencies, call:  gdm.install(root=None, force=False, clean=True)  where optional arguments:   root : specifies the path to the root working tree  force : indicates that uncommitted changes can be overwritten  clean : causes all untracked files to be deleted from dependencies",
+            "title": "Install"
+        },
+        {
+            "location": "/interfaces/api/#update",
+            "text": "If any of the dependencies track a branch (rather than a specific commit), the current upstream version of that branch can be checked out by calling:  gdm.update(root=None, recurse=False, force=False, clean=True, lock=True)  where optional arguments:   root : specifies the path to the root working tree  recurse : indicates that nested dependencies should also be updated  force : indicates that uncommitted changes can be overwritten  clean : causes all untracked files to be deleted from dependencies  lock : causes the actual dependency versions to be recorded for future installs",
+            "title": "Update"
+        },
+        {
+            "location": "/interfaces/api/#list",
+            "text": "To display the currently checked out dependencies, call:  gdm.list(root=None, allow_dirty=True)  where optional arguments:   root : specifies the path to the root working tree  allow_dirty : causes uncommitted changes to be ignored",
+            "title": "List"
+        },
+        {
+            "location": "/interfaces/api/#uninstall",
+            "text": "To delete all source dependencies, call:  gdm.uninstall(root=None, force=False)  where optional arguments:   root : specifies the path to the root working tree  force : indicates that uncommitted changes can be overwritten",
+            "title": "Uninstall"
+        },
+        {
+            "location": "/use-cases/submodules/",
+            "text": "Replacing Git Submodules\n\n\nWhile Git \nsubmodules\n are an obvious choice to include a particular version of another repository in yours, they end up being far less flexible when one needs to track branches or frequently switch between multiple versions of dependencies.\n\n\nAn Existing Submodule\n\n\nWhen managing a single dependency using submodules, there will be two items in your working tree with special meaning. The \n.gitmodules\n file, which contains submodule configuration, and semi-ignored directory containing the checked out dependency:\n\n\nroot\n/vendor/my_dependency  # submodule at: a943a702d06f34599aee1f8da8ef9f7296031d69\n\n\n\n\nUsing Git in the outer working tree will essentially ignore the contents of the nested working tree, but will still complain if there are changes locally or the submodule's origin has changes.\n\n\nMimicking Submodules\n\n\nTo get the same behavior using GDM, first delete the \n.gitmodules\n file and create a new \n.gdm.yml\n:\n\n\nlocation: .gdm\nsources:\n- repo: \nURL of my_dependency's repository\n\n  dir: my_dependency\n  rev: a943a702d06f34599aee1f8da8ef9f7296031d69\n  link: vendor/my_depenendy\n\n\n\n\nAdd \n.gdm\n to your \n.gitignore\n file and overwrite the old submodule location by running:\n\n\ngdm install --force\n\n\n\n\nNow \nroot\n/vendor/my_dependency\n will be a symbolic link that points to an ignored working tree of \nmy_dependency\n at revision \na943a7\n.\n\n\nGetting Dependencies\n\n\nIn other working trees, simply run \n$ gdm install\n to check out the source dependencies of your project.\n\n\nModifying Dependencies\n\n\nTo include a different version of a dependency, modify the \nrev\n value in the GDM configuration file.",
+            "title": "Replacing Submodules"
+        },
+        {
+            "location": "/use-cases/submodules/#replacing-git-submodules",
+            "text": "While Git  submodules  are an obvious choice to include a particular version of another repository in yours, they end up being far less flexible when one needs to track branches or frequently switch between multiple versions of dependencies.",
+            "title": "Replacing Git Submodules"
+        },
+        {
+            "location": "/use-cases/submodules/#an-existing-submodule",
+            "text": "When managing a single dependency using submodules, there will be two items in your working tree with special meaning. The  .gitmodules  file, which contains submodule configuration, and semi-ignored directory containing the checked out dependency:  root /vendor/my_dependency  # submodule at: a943a702d06f34599aee1f8da8ef9f7296031d69  Using Git in the outer working tree will essentially ignore the contents of the nested working tree, but will still complain if there are changes locally or the submodule's origin has changes.",
+            "title": "An Existing Submodule"
+        },
+        {
+            "location": "/use-cases/submodules/#mimicking-submodules",
+            "text": "To get the same behavior using GDM, first delete the  .gitmodules  file and create a new  .gdm.yml :  location: .gdm\nsources:\n- repo:  URL of my_dependency's repository \n  dir: my_dependency\n  rev: a943a702d06f34599aee1f8da8ef9f7296031d69\n  link: vendor/my_depenendy  Add  .gdm  to your  .gitignore  file and overwrite the old submodule location by running:  gdm install --force  Now  root /vendor/my_dependency  will be a symbolic link that points to an ignored working tree of  my_dependency  at revision  a943a7 .  Getting Dependencies  In other working trees, simply run  $ gdm install  to check out the source dependencies of your project.  Modifying Dependencies  To include a different version of a dependency, modify the  rev  value in the GDM configuration file.",
+            "title": "Mimicking Submodules"
+        },
+        {
+            "location": "/use-cases/branch-tracking/",
+            "text": "Tracking Branches in Dependencies\n\n\nOne common use case of GDM is to track versions of related product sub-components such as a web app that depends on an API.\n\n\nSample Configuration\n\n\nA web app's \ngdm.yml\n might look something like:\n\n\nlocation: gdm_sources\nsources:\n- dir: api\n  link: ''\n  repo: https://github.com/example/api\n  rev: develop\nsources_locked:\n- dir: api\n  link: ''\n  repo: https://github.com/example/api\n  rev: b2730855c9efaaa7448b25b82e5a4363785c83ed\n\n\n\n\nwith a working tree that results in something like:\n\n\npackage.json\nnode_modules\n\ngdm.yml\ngdm_sources/api  # dependency @ b27308\n\napp\ntests\n\n\n\n\nUnderstanding Locked Sources\n\n\nIn the configuration file, the \nsources_locked\n section identifies that commit \nb27308\n of the API was last used to test this web app -- the last time \n$ gdm update\n was run.\n\n\nThe \nsources\n section identifies that the \ndevelop\n branch should be used when checking out a new version of the API.\n\n\nDevelopment Workflow\n\n\n\n\nRun \n$ gdm install\n during continuous integration to test the web app against a known working API\n\n\nRun \n$ gdm update\n locally to determine if newer versions of the API will break the web app\n\n\nWhen both components are working together, commit \ngdm.yml",
+            "title": "Tracking Branches"
+        },
+        {
+            "location": "/use-cases/branch-tracking/#tracking-branches-in-dependencies",
+            "text": "One common use case of GDM is to track versions of related product sub-components such as a web app that depends on an API.",
+            "title": "Tracking Branches in Dependencies"
+        },
+        {
+            "location": "/use-cases/branch-tracking/#sample-configuration",
+            "text": "A web app's  gdm.yml  might look something like:  location: gdm_sources\nsources:\n- dir: api\n  link: ''\n  repo: https://github.com/example/api\n  rev: develop\nsources_locked:\n- dir: api\n  link: ''\n  repo: https://github.com/example/api\n  rev: b2730855c9efaaa7448b25b82e5a4363785c83ed  with a working tree that results in something like:  package.json\nnode_modules\n\ngdm.yml\ngdm_sources/api  # dependency @ b27308\n\napp\ntests",
+            "title": "Sample Configuration"
+        },
+        {
+            "location": "/use-cases/branch-tracking/#understanding-locked-sources",
+            "text": "In the configuration file, the  sources_locked  section identifies that commit  b27308  of the API was last used to test this web app -- the last time  $ gdm update  was run.  The  sources  section identifies that the  develop  branch should be used when checking out a new version of the API.",
+            "title": "Understanding Locked Sources"
+        },
+        {
+            "location": "/use-cases/branch-tracking/#development-workflow",
+            "text": "Run  $ gdm install  during continuous integration to test the web app against a known working API  Run  $ gdm update  locally to determine if newer versions of the API will break the web app  When both components are working together, commit  gdm.yml",
+            "title": "Development Workflow"
+        },
+        {
+            "location": "/use-cases/linked-features/",
+            "text": "Linking Related Feature Branches\n\n\nAnother use case of GDM is to test experimental versions of related product sub-components. In the \nweb app + API example\n, a new feature might require changes in both the API and web app.\n\n\nCustom Locked Sources\n\n\nBy manually modifying the \nsources_locked\n section, a particular version of the API can be checked out to help finish the complete feature in the web app:\n\n\nlocation: gdm_sources\nsources:\n- dir: api\n  link: ''\n  repo: https://github.com/example/api\n  rev: develop\nsources_locked:\n- dir: api\n  link: ''\n  repo: https://github.com/example/api\n  rev: feature/authenticate-with-github  # related feature branch in the API\n\n\n\n\nIf this modified \ngdm.yml\n is committed to a corresponding feature branch in the web app, others will be able to create a similar working tree to collaborate on the feature.\n\n\nDevelopment Workflow\n\n\n\n\nRun \n$ gdm install\n during continuous integration and locally to test the web app against the proposed API changes\n\n\nCommit \ngdm.yml\n to share this feature branch with others\n\n\nWhen the feature is complete, merge the API feature branch first\n\n\nRun \n$ gdm update\n to reset \ngdm.yml\n back to a tracking a specific commit",
+            "title": "Linking Feature Branches"
+        },
+        {
+            "location": "/use-cases/linked-features/#linking-related-feature-branches",
+            "text": "Another use case of GDM is to test experimental versions of related product sub-components. In the  web app + API example , a new feature might require changes in both the API and web app.",
+            "title": "Linking Related Feature Branches"
+        },
+        {
+            "location": "/use-cases/linked-features/#custom-locked-sources",
+            "text": "By manually modifying the  sources_locked  section, a particular version of the API can be checked out to help finish the complete feature in the web app:  location: gdm_sources\nsources:\n- dir: api\n  link: ''\n  repo: https://github.com/example/api\n  rev: develop\nsources_locked:\n- dir: api\n  link: ''\n  repo: https://github.com/example/api\n  rev: feature/authenticate-with-github  # related feature branch in the API  If this modified  gdm.yml  is committed to a corresponding feature branch in the web app, others will be able to create a similar working tree to collaborate on the feature.",
+            "title": "Custom Locked Sources"
+        },
+        {
+            "location": "/use-cases/linked-features/#development-workflow",
+            "text": "Run  $ gdm install  during continuous integration and locally to test the web app against the proposed API changes  Commit  gdm.yml  to share this feature branch with others  When the feature is complete, merge the API feature branch first  Run  $ gdm update  to reset  gdm.yml  back to a tracking a specific commit",
+            "title": "Development Workflow"
+        },
+        {
+            "location": "/about/changes/",
+            "text": "Revision History\n\n\n0.5 (2015/10/20)\n\n\n\n\nAdded Git plugin support via: \ngit deps\n.\n\n\nRemoved '--no-clean' option (now the default) on 'install' and 'update'.\n\n\nAdded '--clean' option to delete ignored files on 'install' and 'update'.\n\n\nSwitched to 'install' rather than 'update' of nested dependencies.\n\n\nAdded '--all' option on 'update' to update all nested dependencies.\n\n\nDisabled warnings when running 'install' without locked sources.\n\n\nAdded '--no-lock' option to disable version recording.\n\n\n\n\n0.4.2 (2015/10/18)\n\n\n\n\nFixed crash when running with some sources missing.\n\n\n\n\n0.4.1 (2015/09/24)\n\n\n\n\nSwitched to cloning for initial working tree creation.\n\n\n\n\n0.4 (2015/09/18)\n\n\n\n\nReplaced 'install' command with 'update'.\n\n\nUpdated 'install' command to use locked dependency versions.\n\n\nNow sorting sources after a successful 'update'.\n\n\nNow requiring '--force' to 'uninstall' with uncommitted changes.\n\n\nUpdated 'list' command to show full shell commands.\n\n\n\n\n0.3.1 (2015/09/09)\n\n\n\n\nEnsures files are not needlessly reloaded with newer versions of YORM.\n\n\n\n\n0.3 (2015/06/26)\n\n\n\n\nAdded '--no-clean' option to disable removing untracked files.\n\n\nAdded support for \nrev-parse\n dates as the dependency \nrev\n.\n\n\n\n\n0.2.5 (2015/06/15)\n\n\n\n\nAdded '--quiet' option to hide warnings.\n\n\n\n\n0.2.4 (2015/05/19)\n\n\n\n\nNow hiding YORM logging bellow warnings.\n\n\n\n\n0.2.3 (2015/05/17)\n\n\n\n\nUpgraded to YORM v0.4.\n\n\n\n\n0.2.2 (2015/05/04)\n\n\n\n\nSpecified YORM \n v0.4.\n\n\n\n\n0.2.1 (2015/03/12)\n\n\n\n\nAdded automatic remote branch tracking in dependencies.\n\n\nNow requiring '--force' when there are untracked files.\n\n\n\n\n0.2 (2015/03/10)\n\n\n\n\nAdded 'list' command to display current URLs/SHAs.\n\n\n\n\n0.1.4 (2014/02/27)\n\n\n\n\nFixed an outdated index when checking for changes.\n\n\n\n\n0.1.3 (2014/02/27)\n\n\n\n\nFixed extra whitespace when logging shell output.\n\n\n\n\n0.1.2 (2014/02/27)\n\n\n\n\nAdded '--force' argument to:\n\n\noverwrite uncommitted changes\n\n\ncreate symbolic links in place of directories\n\n\n\n\n\n\nAdded live shell command output with '-vv' argument.\n\n\n\n\n0.1 (2014/02/24)\n\n\n\n\nInitial release.",
+            "title": "Release Notes"
+        },
+        {
+            "location": "/about/changes/#revision-history",
+            "text": "",
+            "title": "Revision History"
+        },
+        {
+            "location": "/about/changes/#05-20151020",
+            "text": "Added Git plugin support via:  git deps .  Removed '--no-clean' option (now the default) on 'install' and 'update'.  Added '--clean' option to delete ignored files on 'install' and 'update'.  Switched to 'install' rather than 'update' of nested dependencies.  Added '--all' option on 'update' to update all nested dependencies.  Disabled warnings when running 'install' without locked sources.  Added '--no-lock' option to disable version recording.",
+            "title": "0.5 (2015/10/20)"
+        },
+        {
+            "location": "/about/changes/#042-20151018",
+            "text": "Fixed crash when running with some sources missing.",
+            "title": "0.4.2 (2015/10/18)"
+        },
+        {
+            "location": "/about/changes/#041-20150924",
+            "text": "Switched to cloning for initial working tree creation.",
+            "title": "0.4.1 (2015/09/24)"
+        },
+        {
+            "location": "/about/changes/#04-20150918",
+            "text": "Replaced 'install' command with 'update'.  Updated 'install' command to use locked dependency versions.  Now sorting sources after a successful 'update'.  Now requiring '--force' to 'uninstall' with uncommitted changes.  Updated 'list' command to show full shell commands.",
+            "title": "0.4 (2015/09/18)"
+        },
+        {
+            "location": "/about/changes/#031-20150909",
+            "text": "Ensures files are not needlessly reloaded with newer versions of YORM.",
+            "title": "0.3.1 (2015/09/09)"
+        },
+        {
+            "location": "/about/changes/#03-20150626",
+            "text": "Added '--no-clean' option to disable removing untracked files.  Added support for  rev-parse  dates as the dependency  rev .",
+            "title": "0.3 (2015/06/26)"
+        },
+        {
+            "location": "/about/changes/#025-20150615",
+            "text": "Added '--quiet' option to hide warnings.",
+            "title": "0.2.5 (2015/06/15)"
+        },
+        {
+            "location": "/about/changes/#024-20150519",
+            "text": "Now hiding YORM logging bellow warnings.",
+            "title": "0.2.4 (2015/05/19)"
+        },
+        {
+            "location": "/about/changes/#023-20150517",
+            "text": "Upgraded to YORM v0.4.",
+            "title": "0.2.3 (2015/05/17)"
+        },
+        {
+            "location": "/about/changes/#022-20150504",
+            "text": "Specified YORM   v0.4.",
+            "title": "0.2.2 (2015/05/04)"
+        },
+        {
+            "location": "/about/changes/#021-20150312",
+            "text": "Added automatic remote branch tracking in dependencies.  Now requiring '--force' when there are untracked files.",
+            "title": "0.2.1 (2015/03/12)"
+        },
+        {
+            "location": "/about/changes/#02-20150310",
+            "text": "Added 'list' command to display current URLs/SHAs.",
+            "title": "0.2 (2015/03/10)"
+        },
+        {
+            "location": "/about/changes/#014-20140227",
+            "text": "Fixed an outdated index when checking for changes.",
+            "title": "0.1.4 (2014/02/27)"
+        },
+        {
+            "location": "/about/changes/#013-20140227",
+            "text": "Fixed extra whitespace when logging shell output.",
+            "title": "0.1.3 (2014/02/27)"
+        },
+        {
+            "location": "/about/changes/#012-20140227",
+            "text": "Added '--force' argument to:  overwrite uncommitted changes  create symbolic links in place of directories    Added live shell command output with '-vv' argument.",
+            "title": "0.1.2 (2014/02/27)"
+        },
+        {
+            "location": "/about/changes/#01-20140224",
+            "text": "Initial release.",
+            "title": "0.1 (2014/02/24)"
+        },
+        {
+            "location": "/about/contributing/",
+            "text": "For Contributors\n\n\nSetup\n\n\nRequirements\n\n\n\n\nMake:\n\n\nWindows: http://cygwin.com/install.html\n\n\nMac: https://developer.apple.com/xcode\n\n\nLinux: http://www.gnu.org/software/make (likely already installed)\n\n\n\n\n\n\nvirtualenv: https://pypi.python.org/pypi/virtualenv#installation\n\n\nPandoc: http://johnmacfarlane.net/pandoc/installing.html\n\n\nGraphviz: http://www.graphviz.org/Download.php\n\n\n\n\nInstallation\n\n\nCreate a virtualenv:\n\n\n$ make env\n\n\n\n\nDevelopment\n\n\nTesting\n\n\nManually run the tests:\n\n\n$ make test\n$ make tests  # includes integration tests\n\n\n\n\nor keep them running on change:\n\n\n$ make watch\n\n\n\n\n\n\nIn order to have OS X notifications, \nbrew install terminal-notifier\n.\n\n\n\n\nDocumentation\n\n\nBuild the documentation:\n\n\n$ make doc\n\n\n\n\nStatic Analysis\n\n\nRun linters and static analyzers:\n\n\n$ make pep8\n$ make pep257\n$ make pylint\n$ make check  # includes all checks\n\n\n\n\nRelease\n\n\nRelease to PyPI:\n\n\n$ make upload-test  # dry run upload to a test server\n$ make upload",
+            "title": "Contributing"
+        },
+        {
+            "location": "/about/contributing/#for-contributors",
+            "text": "",
+            "title": "For Contributors"
+        },
+        {
+            "location": "/about/contributing/#setup",
+            "text": "Requirements   Make:  Windows: http://cygwin.com/install.html  Mac: https://developer.apple.com/xcode  Linux: http://www.gnu.org/software/make (likely already installed)    virtualenv: https://pypi.python.org/pypi/virtualenv#installation  Pandoc: http://johnmacfarlane.net/pandoc/installing.html  Graphviz: http://www.graphviz.org/Download.php   Installation  Create a virtualenv:  $ make env",
+            "title": "Setup"
+        },
+        {
+            "location": "/about/contributing/#development",
+            "text": "Testing  Manually run the tests:  $ make test\n$ make tests  # includes integration tests  or keep them running on change:  $ make watch   In order to have OS X notifications,  brew install terminal-notifier .   Documentation  Build the documentation:  $ make doc  Static Analysis  Run linters and static analyzers:  $ make pep8\n$ make pep257\n$ make pylint\n$ make check  # includes all checks",
+            "title": "Development"
+        },
+        {
+            "location": "/about/contributing/#release",
+            "text": "Release to PyPI:  $ make upload-test  # dry run upload to a test server\n$ make upload",
+            "title": "Release"
+        },
+        {
+            "location": "/about/license/",
+            "text": "License\n\n\nThe MIT License (MIT)\n\n\nCopyright \n 2015, Jace Browning\n\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "title": "License"
+        },
+        {
+            "location": "/about/license/#license",
+            "text": "The MIT License (MIT)  Copyright   2015, Jace Browning  Permission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:  The above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.  THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.",
+            "title": "License"
+        }
+    ]
+}
