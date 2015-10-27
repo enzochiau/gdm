@@ -46,6 +46,15 @@ def main(args=None, function=None):
     sub.add_argument('-c', '--clean', action='store_true',
                      help="keep ignored files in dependencies")
 
+    # flat parser
+    info = "Flatten all dependencies"
+    sub = subs.add_parser('flat', description=info.capitalize() + '.',
+                          help=info, **shared)
+    # sub.add_argument('-f', '--force', action='store_true',
+    #                  help="overwrite uncommitted changes in dependencies")
+    # sub.add_argument('-c', '--clean', action='store_true',
+    #                  help="keep ignored files in dependencies")
+
     # Update parser
     info = "update dependencies to the latest versions"
     sub = subs.add_parser('update', description=info.capitalize() + '.',
@@ -108,6 +117,8 @@ def _get_command(function, args):
         function = commands.delete
         kwargs.update(force=args.force)
         exit_msg = "\n" + "Run again with '--force' to ignore"
+    elif args.command == "flat":
+        function = commands.flat
 
     return function, kwargs, exit_msg
 

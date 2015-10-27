@@ -29,6 +29,31 @@ def install(root=None, force=False, clean=True, recurse=False):
     return count
 
 
+def flat(root_cfg=None, root=None):
+    """Flatten dependencies for a project."""
+    # log.info("Flatten dependencies...")
+    # count = None
+
+    # root = _find_root(root)
+    # config = load(root)
+
+    # if not root_cfg:
+    #     root_cfg = config
+
+    # if config:
+    #     common.show("Installing dependencies...", log=False)
+    #     common.show()
+    #     count = config.install_deps(recurse=recurse,
+    #                                 force=force,
+    #                                 clean=clean,
+    #                                 update=False)
+
+    # _display_result("install", "installed", count)
+
+    # return count
+    log.warn("flat command hasn't been implemented yet.")
+
+
 def update(root=None, recurse=False, force=False, clean=True, lock=True):
     """Update dependencies for a project."""
     log.info("%supdating dependencies%s...",
