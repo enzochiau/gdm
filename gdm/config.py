@@ -164,14 +164,15 @@ class Config(ShellMixin):
             source.create_link(self.root, force=force)
             common.show()
 
-            config = load()
-            if config:
-                common.indent()
-                count += config.install_deps(update=update and recurse,
-                                             recurse=recurse,
-                                             force=force,
-                                             clean=clean)
-                common.dedent()
+            if recurse:
+                config = load()
+                if config:
+                    common.indent()
+                    count += config.install_deps(update=update,
+                                                 recurse=recurse,
+                                                 force=force,
+                                                 clean=clean)
+                    common.dedent()
 
             self.cd(self.location_path, visible=False)
 

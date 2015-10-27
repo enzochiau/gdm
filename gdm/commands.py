@@ -8,7 +8,7 @@ from .config import load
 log = common.logger(__name__)
 
 
-def install(root=None, force=False, clean=True):
+def install(root=None, force=False, clean=True, recurse=False):
     """Install dependencies for a project."""
     log.info("%sinstalling dependencies...", 'force-' if force else '')
     count = None
@@ -19,7 +19,10 @@ def install(root=None, force=False, clean=True):
     if config:
         common.show("Installing dependencies...", log=False)
         common.show()
-        count = config.install_deps(force=force, clean=clean, update=False)
+        count = config.install_deps(recurse=recurse,
+                                    force=force,
+                                    clean=clean,
+                                    update=False)
 
     _display_result("install", "installed", count)
 

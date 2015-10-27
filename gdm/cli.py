@@ -39,6 +39,8 @@ def main(args=None, function=None):
     info = "get the specified versions of all dependencies"
     sub = subs.add_parser('install', description=info.capitalize() + '.',
                           help=info, **shared)
+    sub.add_argument('-R', '--recurse', action='store_true',
+                     help="Recursively get all dependencies")
     sub.add_argument('-f', '--force', action='store_true',
                      help="overwrite uncommitted changes in dependencies")
     sub.add_argument('-c', '--clean', action='store_true',
@@ -95,8 +97,9 @@ def _get_command(function, args):
     if args.command in ('install', 'update'):
         function = getattr(commands, args.command)
         kwargs.update(force=args.force, clean=args.clean)
+        kwargs.update(recurse=args.recurse)
         if args.command == 'update':
-            kwargs.update(recurse=args.recurse, lock=args.lock)
+            kwargs.update(lock=args.lock)
         exit_msg = "\n" + "Run again with '--force' to overwrite"
     elif args.command == 'list':
         function = commands.display
